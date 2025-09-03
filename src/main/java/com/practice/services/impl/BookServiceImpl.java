@@ -9,6 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -38,5 +41,15 @@ public class BookServiceImpl implements BookService {
             throw new ResourceNotFoundException("Book", "bookTitle", bookTitle);
         }
         return modelMapper.map(book, BookDto.class);
+    }
+
+
+    @Override
+    public List<BookDto> getAllBooks() {
+        List<Book> books = bookRepository.findAll();
+        List<BookDto> bookDtoList = books.stream()
+                .map((element) -> modelMapper.map(element, BookDto.class)).collect(Collectors.toList());
+
+        return bookDtoList;
     }
 }

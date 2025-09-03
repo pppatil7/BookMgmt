@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -30,6 +32,12 @@ public class BookController {
     public ResponseEntity<BookDto> getBookByBookTitle(@PathVariable String bookTitle) {
         BookDto book = bookService.getBookByBookTitle(bookTitle);
         return ResponseEntity.ok(book);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<BookDto>> getAllBooks() {
+        List<BookDto> bookDtoList = bookService.getAllBooks();
+        return ResponseEntity.ok(bookDtoList);
     }
 
 
