@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -27,7 +29,7 @@ public class Book {
 
     private String bookAuthor;
 
-    private Integer bookPrice;
+    private BigDecimal bookPrice;
 
 
 }
