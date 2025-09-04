@@ -12,7 +12,14 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.formLogin(Customizer.withDefaults());
+        httpSecurity
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/books/add").hasRole("ADMIN")
+                        .requestMatchers("/books/get/{bookId}").authenticated()
+                        .requestMatchers("/books/search/{bookTitle}").hasRole("STUDENT")
+                        .requestMatchers("/books/all").permitAll()
+                )
+                .formLogin(Customizer.withDefaults());
         return httpSecurity.build();
     }
 

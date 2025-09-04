@@ -16,13 +16,13 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @PostMapping("/")
+    @PostMapping("/add")
     public ResponseEntity<BookDto> addBook(@RequestBody BookDto bookDto) {
         BookDto book = bookService.addBook(bookDto);
         return new ResponseEntity<>(book, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{bookId}")
+    @GetMapping("/get/{bookId}")
     public ResponseEntity<BookDto> getBookByBookId(@PathVariable Integer bookId) {
         BookDto book = bookService.getBookByBookId(bookId);
         return ResponseEntity.ok(book);
@@ -34,7 +34,7 @@ public class BookController {
         return ResponseEntity.ok(book);
     }
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public ResponseEntity<List<BookDto>> getAllBooks() {
         List<BookDto> bookDtoList = bookService.getAllBooks();
         return ResponseEntity.ok(bookDtoList);
