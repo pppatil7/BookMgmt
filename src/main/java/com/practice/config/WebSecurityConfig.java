@@ -32,21 +32,21 @@ public class WebSecurityConfig {
     }
 
 
-    @Bean
-    UserDetailsService userDetailsService() {
-        UserDetails user1 = User.withUsername("admin")
-                .password(passwordEncoder.encode("pass"))
-                .roles("ADMIN")
-                .build();
-
-        UserDetails user2 = User.withUsername("student")
-                .password(passwordEncoder.encode("pass"))
-                .roles("STUDENT")
-                .build();
-
-        return new InMemoryUserDetailsManager(user1, user2);
-
-    }
+//    @Bean
+//    UserDetailsService userDetailsService() {
+//        UserDetails user1 = User.withUsername("admin")
+//                .password(passwordEncoder.encode("pass"))
+//                .roles("ADMIN")
+//                .build();
+//
+//        UserDetails user2 = User.withUsername("student")
+//                .password(passwordEncoder.encode("pass"))
+//                .roles("STUDENT")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(user1, user2);
+//
+//    }
 
 
 }
