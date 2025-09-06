@@ -9,10 +9,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @RequiredArgsConstructor
 public class WebSecurityConfig {
+
+    private final JwtAuthFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -21,11 +24,13 @@ public class WebSecurityConfig {
                 .sessionManagement(sessionConfig ->
                         sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/books/add").hasRole("ADMIN")
-                        .requestMatchers("/books/get/{bookId}").authenticated()
-                        .requestMatchers("/books/search/{bookTitle}").hasRole("STUDENT")
-                        .requestMatchers("/books/all", "/auth/**").permitAll()
-                );
+//                        .requestMatchers("/books/add").hasRole("ADMIN")
+                                .requestMatchers("/books/get/{bookId}").authenticated()
+//                        .requestMatchers("/books/search/{bookTitle}").hasRole("STUDENT")
+                                .requestMatchers("/books/all", "/auth/**").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 //                .formLogin();
         return httpSecurity.build();
     }
